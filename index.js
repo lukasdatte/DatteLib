@@ -19,7 +19,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Wait = exports.Regex = exports.Question = exports.Log = exports.Lib = exports.Fs = exports.Csv = void 0;
+exports.SettingsFile = exports.Wait = exports.Regex = exports.Question = exports.Log = exports.Lib = exports.Fs = exports.Csv = void 0;
 exports.Csv = __importStar(require("./lib/csv"));
 exports.Fs = __importStar(require("./lib/fs"));
 exports.Lib = __importStar(require("./lib/lib"));
@@ -27,4 +27,6 @@ exports.Log = __importStar(require("./lib/log"));
 exports.Question = __importStar(require("./lib/question"));
 exports.Regex = __importStar(require("./lib/regex"));
 exports.Wait = __importStar(require("./lib/wait"));
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiLi8iLCJzb3VyY2VzIjpbImluZGV4LnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFBQSxpREFBZ0M7QUFFaEMsK0NBQThCO0FBRTlCLGlEQUFnQztBQUVoQyxpREFBZ0M7QUFFaEMsMkRBQTBDO0FBRTFDLHFEQUFvQztBQUVwQyxtREFBa0MifQ==
+var settingsFile_1 = require("./lib/settingsFile");
+Object.defineProperty(exports, "SettingsFile", { enumerable: true, get: function () { return settingsFile_1.SettingsFile; } });
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiLi8iLCJzb3VyY2VzIjpbImluZGV4LnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFFQSxpREFBZ0M7QUFFaEMsK0NBQThCO0FBRTlCLGlEQUFnQztBQUVoQyxpREFBZ0M7QUFFaEMsMkRBQTBDO0FBRTFDLHFEQUFvQztBQUVwQyxtREFBa0M7QUFFbEMsbURBQWdEO0FBQXhDLDRHQUFBLFlBQVksT0FBQSJ9
