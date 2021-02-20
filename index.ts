@@ -1,20 +1,13 @@
-import * as csv from "./lib/csv"
-exports.Csv = csv;
+export * as Csv from "./lib/csv"
 
-import * as fs from "./lib/fs"
-exports.Fs = fs;
+export * as Fs from "./lib/fs"
 
-import * as lib from "./lib/lib"
-exports.Lib = lib;
+export * as Lib from "./lib/lib"
 
-import * as log from "./lib/log"
-exports.Log = log;
+export * as Log from "./lib/log"
 
-import * as question from "./lib/question"
-exports.Question = question;
+export * as Question from "./lib/question"
 
-import * as regex from "./lib/regex"
-exports.Regex = regex;
+export * as Regex from "./lib/regex"
 
-import * as wait from "./lib/wait"
-exports.Wait = wait;
+export * as Wait from "./lib/wait"
