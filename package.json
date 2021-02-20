@@ -1,6 +1,6 @@
 {
   "name": "dattelib",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "# DatteLib",
   "main": "index.js",
   "scripts": {
