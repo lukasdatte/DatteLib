@@ -1,12 +1,12 @@
 {
   "name": "dattelib",
   "version": "1.0.2",
-  "description": "\"# DatteLib\"",
+  "description": "# DatteLib",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc": "tsc",
-    "release": "dotenv release-it --dry-run"
+    "release": "dotenv release-it"
   },
   "repository": {
     "type": "git",
@@ -27,6 +27,7 @@
     "@types/lodash": "^4.14.168",
     "@types/node": "^14.14.31",
     "@types/readline-sync": "^1.4.3",
+    "csv-parse": "^4.8.5",
     "escape-string-regexp": "^4.0.0",
     "lodash": "^4.17.20",
     "readline-sync": "^1.4.10"
