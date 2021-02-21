@@ -1,4 +1,5 @@
 import * as lib from "./lib";
+import {CsvRow, Json, Primitives} from "./types";
 
 const csvParse = require('csv-parse/lib/sync');
 const stringify = require('csv-stringify');
@@ -28,15 +29,21 @@ export function toMap<T extends {}, L extends PropertyKey>(records : T[], keyNam
     return map;
 }
 
-export function readCSV(fileName: string): object[] {
+export function readCSV<T extends Json>(fileName: string): T[] {
     return csvParse(stripBom(fs.readFileSync(fileName, {encoding: 'UTF8'})), options);
 }
 
-export async function readCSVAsnc(fileName: string): Promise<object[]> {
+export async function readCSVAsync<T extends Json>(fileName: string): Promise<T[]> {
     return csvParse(stripBom(await fs.readFile(fileName, {encoding: 'UTF8'})), options);
 }
 
-export function writeCSVFromMap(inputMap: Map<any, any>, path: string, deleteCsvIfEmpty: boolean) {
+/**
+ * Writes an Map of objets as a csv file. This function extracts the column names from the key of the first object. The Data is gathered from all Objects including the frist one.
+ * @param inputMap Map of Objects.
+ * @param path {@link writeCSV}
+ * @param deleteCsvIfEmpty {@link writeCSV}
+ */
+export function writeCSVFromMap<T extends CsvRow>(inputMap: Map<any, Required<T>>, path: string, deleteCsvIfEmpty: boolean) {
     if (inputMap.size == 0 && !deleteCsvIfEmpty)
         throw "Input Map can not be empty for csv file export. You may turn deleteCsvIfEmpty on to get any already written file to be deleted."
 
@@ -44,13 +51,20 @@ export function writeCSVFromMap(inputMap: Map<any, any>, path: string, deleteCsv
         return writeCSV([], path, deleteCsvIfEmpty)
 
     //Write CSV
-    const header : string[] = Object.keys([...inputMap.values()][0]);
-    const dataArray : string[][] = [...inputMap].map(record => Object.values(record[1]));
+    const array = [...inputMap.values()];
+    const header : string[] = Object.keys(array[0]);
+    const dataArray : string[][] = array.map(record => Object.values(record));
 
-    writeCSVFromArray([header].concat(dataArray), path, deleteCsvIfEmpty)
+    writeCSV([header].concat(dataArray), path, deleteCsvIfEmpty)
 }
 
-export function writeCSVFromArray(inputArray : any[], path : string, deleteCsvIfEmpty: boolean) {
+/**
+ * Writes an array of objets as a csv file. This function extracts the column names from the key of the first object. The Data is gathered from all Objects including the frist one.
+ * @param inputArray Array of Objects.
+ * @param path {@link writeCSV}
+ * @param deleteCsvIfEmpty {@link writeCSV}
+ */
+export function writeCSVFromArray<T extends CsvRow>(inputArray : Required<T>[], path : string, deleteCsvIfEmpty: boolean) {
     if(inputArray.length == 0 && !deleteCsvIfEmpty)
         throw "Input Array can not be empty for csv file export. You may turn deleteCsvIfEmpty on to get any already written file to be deleted."
 
@@ -61,7 +75,13 @@ export function writeCSVFromArray(inputArray : any[], path : string, deleteCsvIf
     writeCSV(array, path, deleteCsvIfEmpty);
 }
 
-export function writeCSV(inputArray : any[], path : string, deleteCsvIfEmpty: boolean) {
+/**
+ * Writes an array of arrays / rows as a csv file.
+ * @param inputArray Array of Rows. Please make sure, that all rows have the same amount of elements.
+ * @param path Where to write the csv file?
+ * @param deleteCsvIfEmpty Delete any existing csv file, if the provided array has a length of 0. Alternatively the function will throw an exception if you provide an empty inputArray.
+ */
+export function writeCSV(inputArray : Primitives[][], path : string, deleteCsvIfEmpty: boolean) {
     //Write CSV
     //console.log(inputArray.slice(0,3))
 
@@ -90,9 +110,19 @@ export function writeCSV(inputArray : any[], path : string, deleteCsvIfEmpty: bo
     });
 }
 
+/*
+type Complete<T> = {
+    [P in keyof Required<T>]: Pick<T, P> extends Required<Pick<T, P>> ? T[P] : (T[P] | undefined);
+}
+
+writeCSVFromArray([["x"],["d"],["d", "d"]],"", false)
+writeCSVFromArray([{s: "s"},{s: "s"}],"", false)
+writeCSVFromArray([{y: "s"},{s: "k"}],"", false)
+
 module.exports = {}
 module.exports.options = options;
 module.exports.toMap = toMap;
 module.exports.readCSV = readCSV;
 module.exports.writeCSVFromMap = writeCSVFromMap;
 module.exports.writeCSVFromArray = writeCSVFromArray;
+*/
