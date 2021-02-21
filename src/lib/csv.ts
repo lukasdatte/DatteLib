@@ -60,8 +60,6 @@ export function toMap<T extends {L: K}, L extends PropertyKey, K>(records : T[],
     return map;
 }
 
-export function readCSV<P extends { columns?: boolean }>(fileName: string, encoding: CsvEncoding, options? : P & parse.Options):
-    P extends { columns: false } ? Primitives[][] : Json[];
 
 /**
  * Read a CSV file and return an array of objects. The Key Names a taken from the first line of the CSV.<br/>
@@ -72,7 +70,7 @@ export function readCSV<P extends { columns?: boolean }>(fileName: string, encod
  * {@link parse.Options}, {@link defaultParseOptions}<br/>
  *
  */
-export function readCSV<T extends Json, P extends { columns?: boolean }>(fileName: string, encoding: CsvEncoding = "utf8", options? : P & parse.Options):
+export function readCSV<T extends Json, P extends parse.Options>(fileName: string, encoding: CsvEncoding = "utf8", options? : P & parse.Options):
     P extends { columns: false } ? Primitives[][] : T[]
 {
     const options2 = getReadOptions(options);
@@ -84,8 +82,9 @@ export function readCSV<T extends Json, P extends { columns?: boolean }>(fileNam
 }
 
 /*let c = readCSV("")
-let c2 = readCSV("", {columns: false})
-let c3 = readCSV("", {columns: true})*/
+let c2 = readCSV("", "utf8", {columns: false})
+let c3 = readCSV("", "utf8", {columns: true})
+let c4 = readCSV("", "utf8", {})*/
 
 /**
  * @deprecated

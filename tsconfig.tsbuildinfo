@@ -517,8 +517,8 @@
         "affectsGlobalScope": false
       },
       "./src/lib/csv.ts": {
-        "version": "4bcc52468f24f88c7498b9aeeff9e573d8b096236c2cf8c6e25c4006168a1cc3",
-        "signature": "2bfd799c89acfc3fd55b04c0fd62a1ac21055b2d6d1033664ad808fbabc361a0",
+        "version": "92fd8dc8be4094cf6a825f7a0a581e845253f57fda240a266d01f88d1d888e66",
+        "signature": "54b3a0224abbe9b68f7ea30b3acd4166cd31a0f9dd89a34d6113cebaaee31a92",
         "affectsGlobalScope": false
       },
       "./src/lib/fs.ts": {
