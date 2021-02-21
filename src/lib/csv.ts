@@ -60,6 +60,8 @@ export function toMap<T extends {L: K}, L extends PropertyKey, K>(records : T[],
     return map;
 }
 
+export function readCSV<P extends { columns?: boolean }>(fileName: string, encoding: CsvEncoding, options? : P & parse.Options):
+    P extends { columns: false } ? Primitives[][] : Json[];
 
 /**
  * Read a CSV file and return an array of objects. The Key Names a taken from the first line of the CSV.<br/>
