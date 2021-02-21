@@ -12,6 +12,8 @@ export * as Question from "./lib/question"
 
 export * as Regex from "./lib/regex"
 
-export * as Wait from "./lib/wait"
-
 export {SettingsFile} from "./lib/settingsFile";
+
+export * as Types from "./lib/types"
+
+export * as Wait from "./lib/wait"
