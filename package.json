@@ -2,11 +2,12 @@
   "name": "dattelib",
   "version": "1.0.5",
   "description": "# DatteLib",
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "tsc": "tsc",
-    "release": "tsc && dotenv release-it"
+    "tsc": "tsc --build tsconfig.json",
+    "release": "tsc --build tsconfig.json && dotenv release-it"
   },
   "repository": {
     "type": "git",
@@ -32,6 +33,7 @@
     "escape-string-regexp": "^4.0.0",
     "lodash": "^4.17.20",
     "readline-sync": "^1.4.10",
-    "strip-bom": "^4.0.0"
+    "strip-bom": "^4.0.0",
+    "windows-1252": "^1.0.0"
   }
 }
