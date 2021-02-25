@@ -31,7 +31,7 @@ export type CsvEncoding = 'utf8' | 'windows1252';
  */
 function getReadOptions(options? : parse.Options) {
     const defaultO = _.cloneDeep(defaultParseOptions);
-    return !!options ? Object.assign(defaultO, options) : options;
+    return !!options ? Object.assign(defaultO, options) : defaultO;
 }
 
 /**
@@ -40,7 +40,7 @@ function getReadOptions(options? : parse.Options) {
  */
 function getWriteOptions(options? : parse.Options) {
     const defaultO = _.cloneDeep(defaultParseOptions);
-    return !!options ? Object.assign(defaultO, options) : options;
+    return !!options ? Object.assign(defaultO, options) : defaultO;
 }
 
 /**
