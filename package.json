@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc": "tsc --build tsconfig.json",
-    "release": "tsc --build tsconfig.json && dotenv release-it"
+    "release": "tsc --build tsconfig.json && dotenv release-it --only-version"
   },
   "repository": {
     "type": "git",
