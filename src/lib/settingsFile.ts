@@ -1,5 +1,6 @@
 import * as path from "path";
 import * as fs from "fs";
+import {ensureDirectoryExistence} from "./fs";
 //import Ajv from "ajv";
 //const tsj = require("ts-to-json");
 //const ajv = new Ajv({useDefaults: true})
@@ -43,6 +44,7 @@ export class SettingsFile<T> {
         const data : T = fs.existsSync(filePath) ? JSON.parse(fs.readFileSync(filePath, "utf-8")) : skeletonCreator();*/
 
     updateFile() {
+        //ensureDirectoryExistence(this.filePath);
         fs.writeFileSync(this.filePath, JSON.stringify(this.data, null, 2));
     }
 }

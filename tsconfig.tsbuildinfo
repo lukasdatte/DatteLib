@@ -517,8 +517,8 @@
         "affectsGlobalScope": false
       },
       "./src/lib/csv.ts": {
-        "version": "5b62fd11b8cbcacf615d2d92fd8aa2e75ffaf64538378e2abdc7b9cf6a6ac77a",
-        "signature": "54b3a0224abbe9b68f7ea30b3acd4166cd31a0f9dd89a34d6113cebaaee31a92",
+        "version": "03ab9eb44167eb82df49e5100eb7c16c2128522f95e36aa789bc635ae562106f",
+        "signature": "79cacc4247f27c4d549575e9b8c8b33a0c01bd040f3322a5cde91715fa3b3d31",
         "affectsGlobalScope": false
       },
       "./src/lib/fs.ts": {
@@ -557,7 +557,7 @@
         "affectsGlobalScope": false
       },
       "./src/lib/settingsfile.ts": {
-        "version": "0767ffd74a2904d27462a88b9c5df4f38d19d61198a2c52e95eaee9d38fb5f35",
+        "version": "08e7fea44348f7a0139cedb39e335e321627c3d47b6edff3109a3e596f5d55d5",
         "signature": "64fe4a9fbda25b3ffc0c2e254ce90b9d83fc8271e01fa85e65a459d3e9f3c9d2",
         "affectsGlobalScope": false
       },
@@ -1057,7 +1057,8 @@
       ],
       "./src/lib/settingsfile.ts": [
         "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/path.d.ts"
+        "./node_modules/@types/node/path.d.ts",
+        "./src/lib/fs.ts"
       ],
       "./src/test.ts": [
         "./node_modules/@types/node/fs.d.ts",
@@ -1502,6 +1503,7 @@
       ],
       "./src/lib/csv.ts": [
         "./node_modules/csv-parse/lib/index.d.ts",
+        "./node_modules/csv-stringify/lib/index.d.ts",
         "./src/lib/types.ts"
       ],
       "./src/lib/question.ts": [

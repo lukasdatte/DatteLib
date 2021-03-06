@@ -38,8 +38,8 @@ function getReadOptions(options? : parse.Options) {
  * Return a {@link parse.Options} Object based on user provided settings and the default settings.
  * User Settings overwrite the default ones.
  */
-function getWriteOptions(options? : parse.Options) {
-    const defaultO = _.cloneDeep(defaultParseOptions);
+function getWriteOptions(options? : stringify.Options) {
+    const defaultO = _.cloneDeep(defaultWriteOptions);
     return !!options ? Object.assign(defaultO, options) : defaultO;
 }
 
@@ -101,19 +101,19 @@ export async function readCSVAsync<T extends Json>(fileName: string, options? : 
  * @param path {@link writeCSV}
  * @param deleteCsvIfEmpty {@link writeCSV}
  */
-export function writeCSVFromMap<T extends CsvRow>(inputMap: Map<any, Required<T>>, path: string, deleteCsvIfEmpty: boolean, encoding?: CsvEncoding) {
+export async function writeCSVFromMap<T extends CsvRow>(inputMap: Map<any, Required<T>>, path: string, deleteCsvIfEmpty: boolean, encoding?: CsvEncoding, options? : stringify.Options) {
     if (inputMap.size == 0 && !deleteCsvIfEmpty)
         throw "Input Map can not be empty for csv file export. You may turn deleteCsvIfEmpty on to get any already written file to be deleted."
 
     if (inputMap.size == 0)
-        return writeCSV([], path, deleteCsvIfEmpty, encoding)
+        return writeCSV([], path, deleteCsvIfEmpty, encoding, options)
 
     //Write CSV
     const array = [...inputMap.values()];
     const header : string[] = Object.keys(array[0]);
     const dataArray : string[][] = array.map(record => Object.values(record));
 
-    writeCSV([header].concat(dataArray), path, deleteCsvIfEmpty, encoding)
+    writeCSV([header].concat(dataArray), path, deleteCsvIfEmpty, encoding, options)
 }
 
 /**
@@ -122,15 +122,15 @@ export function writeCSVFromMap<T extends CsvRow>(inputMap: Map<any, Required<T>
  * @param path {@link writeCSV}
  * @param deleteCsvIfEmpty {@link writeCSV}
  */
-export function writeCSVFromArray<T extends CsvRow>(inputArray : Required<T>[], path : string, deleteCsvIfEmpty: boolean, encoding?: CsvEncoding) {
+export async function writeCSVFromArray<T extends CsvRow>(inputArray : Required<T>[], path : string, deleteCsvIfEmpty: boolean, encoding?: CsvEncoding, options? : stringify.Options) {
     if(inputArray.length == 0 && !deleteCsvIfEmpty)
         throw "Input Array can not be empty for csv file export. You may turn deleteCsvIfEmpty on to get any already written file to be deleted."
 
     if(inputArray.length == 0)
-        return writeCSV([], path, deleteCsvIfEmpty, encoding)
+        return writeCSV([], path, deleteCsvIfEmpty, encoding, options)
 
     const array = [Object.keys(inputArray[0])].concat(inputArray.map(record => Object.values(record)));
-    writeCSV(array, path, deleteCsvIfEmpty, encoding);
+    return writeCSV(array, path, deleteCsvIfEmpty, encoding, options);
 }
 
 /**
@@ -140,7 +140,7 @@ export function writeCSVFromArray<T extends CsvRow>(inputArray : Required<T>[], 
  * @param deleteCsvIfEmpty Delete any existing csv file, if the provided array has a length of 0. Alternatively the function will throw an exception if you provide an empty inputArray.
  * @param encoding
  */
-export async function writeCSV(inputArray: Primitives[][], path: string, deleteCsvIfEmpty: boolean, encoding?: CsvEncoding) {
+export async function writeCSV(inputArray: Primitives[][], path: string, deleteCsvIfEmpty: boolean, encoding?: CsvEncoding, options? : stringify.Options) {
     return new Promise<void>((resolve, reject) => {
         //Write CSV
         //console.log(inputArray.slice(0,3))
@@ -158,7 +158,9 @@ export async function writeCSV(inputArray: Primitives[][], path: string, deleteC
             }
         }
 
-        stringify(inputArray, defaultWriteOptions, function (err, output: string | Buffer) {
+        let options1 = getWriteOptions(options);
+
+        stringify(inputArray, options1, function (err, output: string | Buffer) {
             if(encoding == 'windows1252')
                 output = windows1252.encode(output)
 
