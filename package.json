@@ -1,6 +1,6 @@
 {
   "name": "dattelib",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "# DatteLib",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
