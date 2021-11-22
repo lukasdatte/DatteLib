@@ -1,5 +1,5 @@
 export type Json<T> = {
-    [key in keyof T]: Primitives | Json<T[key]> | Json<T[key]>[]
+    [key in keyof T]: Primitives | Json<T[key]> | Json<T[key]>[] | null
 }
 
 export type Primitives = string | number | boolean;
