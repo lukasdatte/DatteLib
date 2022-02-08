@@ -71,7 +71,8 @@
   },
   "exclude": [
     "node_modules",
-    "dist"
+    "dist",
+    "wiki"
   ],
   "file": [
     "./src/index.ts",
