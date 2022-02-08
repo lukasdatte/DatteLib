@@ -49,10 +49,10 @@ function getWriteOptions(options? : stringify.Options) {
  * @param keyName Schlüssel -> Optimalerweise die Artikelnummer
  * @return {Map<typeof r[L], T>}
  */
-export function toMap<T extends {L: K}, L extends PropertyKey, K>(records : T[], keyName : L) : Map<PropertyKey, T> {
+export function toMap<T, K extends keyof T>(records : T[], keyName : K) : Map< T[K], T> {
     const map = new Map();
     records.forEach((r : T) => {
-        if(lib.hasOwnProperty(r,keyName))
+        if(lib.hasProperty(r,keyName))
             map.set(r[keyName], r);
         else
             throw "Object needs to Contain key!"
@@ -70,7 +70,7 @@ export function toMap<T extends {L: K}, L extends PropertyKey, K>(records : T[],
  * {@link parse.Options}, {@link defaultParseOptions}<br/>
  *
  */
-export function readCSV<T extends Json<T>, P extends parse.Options>(fileName: string, encoding: CsvEncoding = "utf8", options? : P & parse.Options):
+export function readCSV<T extends CsvRow<T>, P extends parse.Options>(fileName: string, encoding: CsvEncoding = "utf8", options? : P & parse.Options):
     P extends { columns: false } ? Primitives[][] : T[]
 {
     const options2 = getReadOptions(options);
@@ -91,7 +91,7 @@ let c4 = readCSV("", "utf8", {})*/
  * @param fileName
  * @param options
  */
-export async function readCSVAsync<T extends Json<T>>(fileName: string, options? : parse.Options): Promise<T[]> {
+export async function readCSVAsync<T extends CsvRow<T>>(fileName: string, options? : parse.Options): Promise<T[]> {
     return csvParse(stripBom(await fs.readFile(fileName, {encoding: 'UTF8'})), getReadOptions(options));
 }
 
@@ -117,12 +117,15 @@ export async function writeCSVFromMap<T extends CsvRow<T>>(inputMap: Map<any, Re
 }
 
 /**
+ * /**
  * Writes an array of objets as a csv file. This function extracts the column names from the key of the first object. The Data is gathered from all Objects including the frist one.
  * @param inputArray Array of Objects.
  * @param path {@link writeCSV}
  * @param deleteCsvIfEmpty {@link writeCSV}
+ * @param encoding
+ * @param options
  */
-export async function writeCSVFromArray<T extends CsvRow<T>>(inputArray : Required<T>[], path : string, deleteCsvIfEmpty: boolean, encoding?: CsvEncoding, options? : stringify.Options) {
+export async function writeCSVFromArray<T extends CsvRow<T>>(inputArray : Required<T>[], path : string, deleteCsvIfEmpty = false, encoding?: CsvEncoding, options? : stringify.Options) {
     if(inputArray.length == 0 && !deleteCsvIfEmpty)
         throw "Input Array can not be empty for csv file export. You may turn deleteCsvIfEmpty on to get any already written file to be deleted."
 
